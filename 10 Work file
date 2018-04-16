@@ -15,11 +15,17 @@ from OpenGL.GLU import *
      #name of file    has this in file
 from HW_10 import Ui_MainWindow
 
+
 class main_window(QDialog):
 
     def __init__(self):
         super(main_window, self).__init__()
         self.Truss = None
+        self.color = 1
+        self.Red = 1
+        self.Green = 1
+        self.Blue = 1
+        self.Zoom = 1
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.assign_widgets()
@@ -30,37 +36,15 @@ class main_window(QDialog):
         self.ui.OpenButton.clicked.connect(subprocess.Popen(r'explorer /select,"C:\path\of\folder\file"'))
         self.ui.OpenButton.clicked.connect(self.readtruss)
 
-        # initialize openGL
-        self.ui.openGLWidget.initializeGL = self.initGL
-        self.ui.openGLWidget.paintGL = self.paintGL
-        self.ui.openGLWidgetTwo.paintGL = self.paintGLTwo
+    
 
     def updateWindows(self):
         self.ui.openGLWidget.update()
         self.ui.openGLWidgetTwo.update()
 
-    def Zooming(self):
-        self.Zoom = float(self.ui.horizontalSliderFour.value()/33)
-        self.updateWindows()
-
-    def RedChange(self):
-        self.Red = self.ui.horizontalSlider.value()/100
-        self.updateWindows()
-
-    def GreenChange(self):
-        self.Green = self.ui.horizontalSliderTwo.value()/100
-        self.updateWindows()
-
-    def BlueChange(self):
-        self.Blue = self.ui.horizontalSliderThree.value()/100
-        self.updateWindows()
-
     def readTruss(self):
-        self.Truss = Truss() #create a truss object
         self.Truss.x0, self.Truss.y0, self.Truss.xf, self.Truss.yf = np.loadtxt('trussOne.txt',skiprows=1,unpack=True)
-        self.Red = self.ui.horizontalSlider.value()/100
-        self.Blue = self.ui.horizontalSliderThree.value()/100
-        self.Green = self.ui.horizontalSliderTwo.value()/100
+        
         self.updateWindows()
 
     def initGL(self):
@@ -84,29 +68,8 @@ class main_window(QDialog):
         if self.Truss != None:
             self.drawTruss(self.Truss.x0,self.Truss.y0,self.Truss.xf,self.Truss.yf)
 
-    def paintGLTwo(self):
-        self.paintGL(zoomval = 2)
 
-    def drawTruss(self,x0,y0,xf,yf):
-        # draw the truss links
-        glLineWidth(4)
-        glColor3f(self.Red,self.Green,self.Blue)
-        glBegin(GL_LINES)  #begin drawing disconnected lines
-        # draw each line by giving the starting point and the ending point
-        for i in range(len(x0)):
-            glVertex2f(x0[i],y0[i])
-            glVertex2f(xf[i],yf[i])
-        glEnd()
-        # draw the labels on the truss links
-        glColor3f(1,1,1)
-        for i in range(len(x0)):
-            self.drawText(str(i), (x0[i]+xf[i])/2, (y0[i]+yf[i])/2)
-        # end drawTruss
 
-    def drawText(self, text, x, y):
-        glRasterPos2d(x,y)
-        for ch in text:
-            glutBitmapCharacter(GLUT_BITMAP_HELVETICA_12, ord(ch))
     # end
 
 
