@@ -8,10 +8,6 @@ from PyQt5.QtGui import QCursor, QColor
 from PyQt5.QtCore import Qt, QTimer
 from PyQt5.QtOpenGL import QGL, QGLFormat, QGLWidget
 
-from OpenGL.GL import *
-from OpenGL.GLUT import *
-from OpenGL.GLU import *
-
      #name of file    has this in file
 from HW_10 import Ui_MainWindow
 
@@ -21,11 +17,6 @@ class main_window(QDialog):
     def __init__(self):
         super(main_window, self).__init__()
         self.Truss = None
-        self.color = 1
-        self.Red = 1
-        self.Green = 1
-        self.Blue = 1
-        self.Zoom = 1
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.assign_widgets()
@@ -36,7 +27,7 @@ class main_window(QDialog):
         self.ui.OpenButton.clicked.connect(subprocess.Popen(r'explorer /select,"C:\path\of\folder\file"'))
         self.ui.OpenButton.clicked.connect(self.readtruss)
 
-    
+
 
     def updateWindows(self):
         self.ui.openGLWidget.update()
@@ -44,10 +35,8 @@ class main_window(QDialog):
 
     def readTruss(self):
         self.Truss.x0, self.Truss.y0, self.Truss.xf, self.Truss.yf = np.loadtxt('trussOne.txt',skiprows=1,unpack=True)
-        
+
         self.updateWindows()
-
-
 
     # end
 
