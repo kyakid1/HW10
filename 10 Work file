@@ -20,19 +20,15 @@ class main_window(QDialog):
     def __init__(self):
         super(main_window, self).__init__()
         self.Truss = None
-        self.color = 1
-        self.Red = 1
-        self.Green = 1
-        self.Blue = 1
-        self.Zoom = 1
         self.ui = Ui_MainWindow()
         self.ui.setupUi(self)
         self.assign_widgets()
         self.show()
 
     def assign_widgets(self):
-        self.ui.pushButton.clicked.connect(self.readTruss)
-
+        import subprocess
+        self.ui.OpenButton.clicked.connect(subprocess.Popen(r'explorer /select,"C:\path\of\folder\file"'))
+        self.ui.OpenButton.clicked.connect(self.readtruss)
 
         # initialize openGL
         self.ui.openGLWidget.initializeGL = self.initGL
