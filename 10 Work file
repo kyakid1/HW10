@@ -6,10 +6,10 @@ from PyQt5.QtWidgets import QDialog, QApplication, QSlider
 from PyQt5.QtWidgets import QFileDialog, QMessageBox
 from PyQt5.QtGui import QCursor, QColor
 from PyQt5.QtCore import Qt, QTimer
-from PyQt5.QtOpenGL import QGL, QGLFormat, QGLWidget
+#from PyQt5.QtOpenGL import QGL, QGLFormat, QGLWidget
 
      #name of file    has this in file
-from HW_10 import Ui_MainWindow
+from HW_10_gui import Ui_Ui_Dialog
 
 
 class main_window(QDialog):
@@ -17,7 +17,7 @@ class main_window(QDialog):
     def __init__(self):
         super(main_window, self).__init__()
         self.Truss = None
-        self.ui = Ui_MainWindow()
+        self.ui = Ui_Ui_Dialog()
         self.ui.setupUi(self)
         self.assign_widgets()
         self.show()
